@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">LetMeFly</string>
+    <string name="searchPage_Header">Enter your flight code.</string>
+    <string name="searchPage_userInput">Enter Your Flight Code</string>
+</resources>
