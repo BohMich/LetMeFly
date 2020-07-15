@@ -6,37 +6,45 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="200dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="10dp"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchPage_Header" />
-
-    <TextView
-        android:id="@+id/searchPage_Header"
-        android:layout_width="141dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/searchPage_Header"
+    <LinearLayout
+        android:id="@+id/main_layout"
+        android:layout_width="415dp"
+        android:layout_height="673dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.072" />
-
-    <Button
-        android:id="@+id/searchPage_button_makeRequest"
-        android:layout_width="162dp"
-        android:layout_height="67dp"
-        android:layout_marginTop="10dp"
-        android:text="Button"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/main_layout"
+        app:layout_constraintRight_toRightOf="@id/main_layout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toTOOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/searchPage_input_makeRequest"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:hint="Flight Number" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="275dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/searchPage_input_makeRequest_Name"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:hint="Nationality" />
+
+                <Button
+                    android:id="@+id/searchPage_button_makeRequest"
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:layout_weight="1"
+                    android:text="Button" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
