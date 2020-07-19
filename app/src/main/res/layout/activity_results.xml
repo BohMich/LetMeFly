@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerInParent="true"
+    android:layout_centerHorizontal="true"
+    android:background="#fcfff7"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    tools:context=".ResultsActivity">
+
+    <ScrollView
+        android:id="@+id/result_scrollview"
+        android:layout_width="400dp"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:fadeScrollbars="false"
+        android:fillViewport="false"
+        android:background="@drawable/border_green"
+
+        android:hapticFeedbackEnabled="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="25dp"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/result_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="Result: Can visit."
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/image_result"
+                android:layout_width="438dp"
+                android:layout_height="190dp"
+                android:layout_gravity="center_horizontal"
+                android:adjustViewBounds="false"
+                android:duplicateParentState="false"
+                android:foregroundGravity="top|center"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                app:srcCompat="@drawable/green_final" />
+
+            <TextView
+                android:id="@+id/textView_result_destination"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:autoLink="web"
+                android:text="Destination"
+                android:textColor="@color/colorPrimaryDark"
+                android:textIsSelectable="true"
+                android:textSize="18sp"
+                android:textStyle="normal" />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -39,7 +39,13 @@ public class AirportEntity {
     @ColumnInfo(name = "can_transit_info")
     private String can_transit_info;
 
-    public AirportEntity(String airport_code, String country, String city, Boolean can_visit, String can_visit_info, Boolean can_transit, String can_transit_info) {
+    @ColumnInfo(name = "can_visit_details")
+    private String can_visit_details;
+
+    @ColumnInfo(name = "can_transit_details")
+    private String can_transit_details;
+
+    public AirportEntity(String airport_code, String country, String city, Boolean can_visit, String can_visit_info, Boolean can_transit, String can_transit_info,String can_visit_details,String can_transit_details) {
         this.airport_code = airport_code;
         this.country = country;
         this.city = city;
@@ -47,6 +53,8 @@ public class AirportEntity {
         this.can_visit_info = can_visit_info;
         this.can_transit = can_transit;
         this.can_transit_info = can_transit_info;
+        this.can_visit_details = can_visit_details;
+        this.can_transit_details = can_transit_details;
     }
 
     public int getId() { return id; }
@@ -83,7 +91,13 @@ public class AirportEntity {
         return can_transit_info;
     }
 
+    public String getCan_visit_details() {
+        return can_visit_details;
+    }
 
+    public String getCan_transit_details() {
+        return can_transit_details;
+    }
 }
 
 

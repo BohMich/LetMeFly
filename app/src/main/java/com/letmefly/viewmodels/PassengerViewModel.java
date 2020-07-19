@@ -24,7 +24,6 @@ public class PassengerViewModel extends AndroidViewModel {
         airportsRepo = new AirportRepository(application);
         result = new MutableLiveData<>();
     }
-    //private SearchFlightCallBack callback;
 
     public void checkFlight(String flightNumber, String nationality){
         //check if flight is valid, if it is generate a status regarding the flight.

@@ -16,7 +16,7 @@ import com.letmefly.R;
 import com.letmefly.databases.daos.AirportEntityDao;
 import com.letmefly.databases.entities.AirportEntity;
 
-@Database(entities = {AirportEntity.class}, version = 1)
+@Database(entities = {AirportEntity.class}, version = 1, exportSchema = false)
 public abstract class AirportsDataBase extends RoomDatabase {
 
         private static AirportsDataBase instance;

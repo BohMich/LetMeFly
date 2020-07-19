@@ -4,47 +4,73 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fcfff7"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:id="@+id/main_layout"
-        android:layout_width="415dp"
-        android:layout_height="673dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/main_layout"
-        app:layout_constraintRight_toRightOf="@id/main_layout"
+    <Button
+        android:id="@+id/searchPage_button_makeRequest"
+        android:layout_width="244dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/searchPage_button"
+        android:textAllCaps="false"
+        android:textColor="@color/colorResultTextColor"
+        android:background="@drawable/btn_rounded"
+        app:layout_constraintStart_toStartOf="@+id/searchPage_input_makeRequest_Name"
+        app:layout_constraintTop_toBottomOf="@+id/searchPage_input_makeRequest_Name" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="326dp"
+        android:layout_height="184dp"
+        android:layout_marginTop="16dp"
+        android:foregroundGravity="center"
+        android:padding="5dp"
+        android:scaleX="2"
+        android:scaleY="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTOOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_transparent" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout"
+        android:layout_width="247dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/searchPage_input_makeRequest"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:hint="Flight Number" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/searchPage_input_makeRequest"
+            android:layout_width="262dp"
+            android:layout_height="64dp"
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="275dp">
+            android:hint="@string/searchPage_Header"
+            android:textColor="@color/colorPrimaryDark" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/searchPage_input_makeRequest_Name"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:hint="Nationality" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-                <Button
-                    android:id="@+id/searchPage_button_makeRequest"
-                    android:layout_width="match_parent"
-                    android:layout_height="32dp"
-                    android:layout_weight="1"
-                    android:text="Button" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
+    <com.hbb20.CountryCodePicker
+        android:id="@+id/searchPage_input_makeRequest_Name"
+        android:layout_width="244dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:gravity="clip_horizontal|center_vertical"
+        app:ccp_showFlag="true"
+        app:ccp_showFullName="true"
+        app:ccp_showNameCode="false"
+        app:ccp_showPhoneCode="false"
+        app:ccp_arrowColor="@color/colorPrimaryDark"
+        app:ccp_defaultNameCode="GB"
+        app:layout_constraintBottom_toTopOf="@+id/searchPage_button_makeRequest"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+
+    </com.hbb20.CountryCodePicker>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

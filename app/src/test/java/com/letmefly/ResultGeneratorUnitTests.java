@@ -2,6 +2,7 @@ package com.letmefly;
 
 import com.letmefly.databases.entities.AirportEntity;
 import com.letmefly.logic.ResultGenerator;
+import com.letmefly.models.Result;
 import com.letmefly.viewmodels.PassengerViewModel;
 
 import org.junit.Test;
@@ -15,89 +16,122 @@ import static org.junit.Assert.*;
  */
 public class ResultGeneratorUnitTests {
 
-    private AirportEntity testAirport = new AirportEntity("TST","USA","TestCity",false,"Poland,China,England", false, "Test Transit Info");
-    @Test
-    public void addition_isCorrect() {
-        assertEquals(4, 2 + 2);
-    }
+    private AirportEntity testAirport = new AirportEntity("TST","USA","TestCity",false,
+                                        "NULL", false, "NULL","NULL","NULL");
 
     @Test
-    public void ShouldAcceptNationalityFromWhiteList(){
+    public void ShouldNotAcceptVist(){
         ResultGenerator test = new ResultGenerator(testAirport,"England");
-
-        test.generateVisitWhitelist();
-
-        boolean expected = true;
-        boolean actual = test.getCanVisit();
-
-        assertEquals(expected,actual);
-
-    }
-
-    @Test
-    public void ShouldNOTAcceptNationality(){
-        ResultGenerator test = new ResultGenerator(testAirport,"USA");
-
-        test.generateVisitWhitelist();
+        Result result = test.getResult();
 
         boolean expected = false;
-        boolean actual = test.getCanVisit();
+        boolean actual = result.isCanVisit();
 
         assertEquals(expected,actual);
+
     }
+
     @Test
-    public void ShouldAcceptWhiteListEmpty(){
-        AirportEntity ta = new AirportEntity("TST","USA","TestCity",true,"NULL", false, "Test Transit Info");
-
-        ResultGenerator test = new ResultGenerator(ta,"USA");
-
-        test.generateVisitWhitelist();
+    public void ShouldNotAcceptTransit(){
+        ResultGenerator test = new ResultGenerator(testAirport,"England");
+        Result result = test.getResult();
 
         boolean expected = false;
-        boolean actual = test.getCanVisit();
+        boolean actual = result.isCanTransit();
 
         assertEquals(expected,actual);
 
     }
+
+
     @Test
-    public void ShouldAcceptBlacklistCanTransit(){
-        AirportEntity ta = new AirportEntity("TST","Russia","TestCity",true,"NULL", true, "China,India,Poland");
+    public void ShouldNotAcceptVisitEnglandBlackList(){
+        //system accepts based on true/false of can_visit, then rejects the result based on visit_info i.e. blacklist.
 
-        ResultGenerator test = new ResultGenerator(ta,"USA");
+        AirportEntity testAirport = new AirportEntity("TST","USA","TestCity",true,
+                "England", false, "NULL","NULL","NULL");
 
-        test.generateTransitBlacklist();
-
-        boolean expected = true;
-        boolean actual = test.getCanTransit();
-
-        assertEquals(expected,actual);
-
-    }
-    @Test
-    public void ShouldRejectBlacklistCanTransit(){
-        AirportEntity ta = new AirportEntity("TST","Russia","TestCity",true,"NULL", true, "China,India,Poland");
-
-        ResultGenerator test = new ResultGenerator(ta,"Poland");
-
-        test.generateTransitBlacklist();
+        ResultGenerator test = new ResultGenerator(testAirport,"England");
+        Result result = test.getResult();
 
         boolean expected = false;
-        boolean actual = test.getCanTransit();
+        boolean actual = result.isCanVisit();
 
         assertEquals(expected,actual);
 
     }
 
     @Test
-    public void ShouldAcceptTransitBlackListEmpty(){
-        AirportEntity ta = new AirportEntity("TST","Russia","TestCity",true,"NULL", true, "NULL");
+    public void ShouldAcceptVisitEnglandBlackList(){
+        //system accepts based on true/false of can_visit, then rejects the result based on visit_info i.e. blacklist.
 
-        ResultGenerator test = new ResultGenerator(ta,"Poland");
+        AirportEntity testAirport = new AirportEntity("TST","USA","TestCity",false,
+                "England", false, "NULL","NULL","NULL");
 
-        test.generateTransitBlacklist();
+        ResultGenerator test = new ResultGenerator(testAirport,"England");
+        Result result = test.getResult();
 
         boolean expected = true;
-        boolean actual = test.getCanTransit();
+        boolean actual = result.isCanVisit();
+
+        assertEquals(expected,actual);
+
+    }
+
+    @Test
+    public void ShouldNotAcceptTransitEnglandBlackList(){
+        AirportEntity testAirport2 = new AirportEntity("TST","USA","TestCity",false,
+                "NULL", true, "England","NULL","NULL");
+
+        ResultGenerator test = new ResultGenerator(testAirport2,"England");
+        Result result = test.getResult();
+
+        boolean expected = false;
+        boolean actual = result.isCanTransit();
+
+        assertEquals(expected,actual);
+
+    }
+    @Test
+    public void ShouldAcceptTransitEnglandBlackList(){
+        AirportEntity testAirport2 = new AirportEntity("TST","USA","TestCity",false,
+                "NULL", false, "England","NULL","NULL");
+
+        ResultGenerator test = new ResultGenerator(testAirport2,"England");
+        Result result = test.getResult();
+
+        boolean expected = true;
+        boolean actual = result.isCanTransit();
+
+        assertEquals(expected,actual);
+
+    }
+
+    @Test
+    public void ShouldAcceptVisitEnglandButNoTransit(){
+        AirportEntity testAirport2 = new AirportEntity("TST","USA","TestCity",true,
+                "NULL", true, "England","NULL","NULL");
+
+        ResultGenerator test = new ResultGenerator(testAirport2,"England");
+        Result result = test.getResult();
+
+        boolean expected = true;
+        boolean actual = result.isCanVisit();
+
+        assertEquals(expected,actual);
+
+    }
+
+    @Test
+    public void ShouldAcceptVisitEnglandIfPassengerEnglish(){
+        AirportEntity testAirport2 = new AirportEntity("TST","United Kingdom","TestCity",false,
+                "NULL", false, "NULL","NULL","NULL");
+
+        ResultGenerator test = new ResultGenerator(testAirport2,"United Kingdom");
+        Result result = test.getResult();
+
+        boolean expected = true;
+        boolean actual = result.isCanVisit();
 
         assertEquals(expected,actual);
 

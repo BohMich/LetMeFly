@@ -39,7 +39,8 @@ public class AirportRepository {
     }
 
     public AirportEntity getAirport(String airportCode) {
-        AirportEntity temp = new AirportEntity("NUL","NULL","NULL",false,"NULL",false,"NULL");
+        AirportEntity temp = new AirportEntity("NUL","NULL","NULL",false,
+                                                "NULL",false,"NULL","NULL","NULL");
         GetAirportAsyncTask request = new GetAirportAsyncTask(airportDao);
 
         try
@@ -132,7 +133,7 @@ public class AirportRepository {
                 if(nl[5].equals("TRUE")) canTransit = true;
                 else canTransit = false;
 
-                data.add(new AirportEntity(nl[0],nl[1],nl[2],canVisit,nl[4],canTransit,nl[6]));
+                data.add(new AirportEntity(nl[0],nl[1],nl[2],canVisit,nl[4],canTransit,nl[6],nl[7],nl[8]));
             }
         }
         catch(IOException e){
