@@ -1,7 +1,6 @@
 package com.letmefly;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +14,7 @@ public class ResultsActivity extends AppCompatActivity {
     ScrollView scrollView;
     String canVisit;
     String canTransfer;
+    String quarantineRequired;
 
     TextView resultsHeader;
     ImageView resultSign;
@@ -40,15 +40,24 @@ public class ResultsActivity extends AppCompatActivity {
 
         canVisit = intent.getStringExtra("canVisit");
         canTransfer = intent.getStringExtra("canTransit");
+        quarantineRequired = intent.getStringExtra("quarantineRequired");
 
         setScreenState();
     }
 
     private void setScreenState(){
+
         if(canVisit.equals("true")){
-            scrollView.setBackground(getResources().getDrawable(R.drawable.border_green));
-            resultSign.setImageResource(R.drawable.green_final);
-            resultsHeader.setText(R.string.results_Header_Green);
+            if(quarantineRequired.equals("true")){
+                scrollView.setBackground(getResources().getDrawable(R.drawable.border_blue));
+                resultSign.setImageResource(R.drawable.blue_final);
+                resultsHeader.setText(R.string.results_Header_Blue);
+            }
+            else{
+                scrollView.setBackground(getResources().getDrawable(R.drawable.border_green));
+                resultSign.setImageResource(R.drawable.green_final);
+                resultsHeader.setText(R.string.results_Header_Green);
+            }
         }
         else if(canTransfer.equals("true")){
             scrollView.setBackground(getResources().getDrawable(R.drawable.border_orange));

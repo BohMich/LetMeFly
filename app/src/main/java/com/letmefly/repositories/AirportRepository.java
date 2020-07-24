@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
+import androidx.room.Room;
 
 import com.letmefly.R;
 import com.letmefly.databases.AirportsDataBase;
@@ -24,31 +25,38 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import javax.inject.Inject;
+
+import dagger.Binds;
+import dagger.Module;
+import dagger.Provides;
+import dagger.hilt.InstallIn;
+import dagger.hilt.android.components.ActivityComponent;
+
 public class AirportRepository {
 
-    private AirportEntityDao airportDao;
+    private final AirportsDataBase database;
+    private final AirportEntityDao airportDao;
 
-    public AirportRepository(Application app){
-        AirportsDataBase database = AirportsDataBase.getInstance(app);
-        airportDao = database.airportDao();
-
+    @Inject
+    public AirportRepository(Application app, AirportsDataBase database){
+        this.database = database;
+        this.airportDao = this.database.airportDao();
         //refresh database when starting the application
         //TODO Create a system where data is requested from drive if that fails read from local.
         deleteAll();
         fillDataBaseWithBaseData(app.getApplicationContext());
     }
 
-    public AirportEntity getAirport(String airportCode) {
-        AirportEntity temp = new AirportEntity("NUL","NULL","NULL",false,
-                                                "NULL",false,"NULL","NULL","NULL");
-        GetAirportAsyncTask request = new GetAirportAsyncTask(airportDao);
+    public AirportEntity getAirportByCountry(String destination){
+        AirportEntity temp = null;
+        String country  = destination.replaceAll("\\s", "");
+        GetCountryAsyncTask request = new GetCountryAsyncTask(airportDao);
 
-        try
-        {
-            temp = request.execute(airportCode).get();
+        try{
+            temp = request.execute(country).get();
         }
-        catch(Exception e)
-        {
+        catch(Exception ignored){
 
         }
         return temp;
@@ -62,16 +70,15 @@ public class AirportRepository {
         new InsertAirportAsyncTask(airportDao).execute(airport);
     }
 
-    //TODO AsyncTask is depreciated, use concurrent instead for 30API
-    private static class GetAirportAsyncTask extends AsyncTask<String, Void, AirportEntity> {
+    private static class GetCountryAsyncTask extends AsyncTask<String, Void, AirportEntity> {
         private AirportEntityDao airportDao;
-        private GetAirportAsyncTask(AirportEntityDao airportDao){
+        private GetCountryAsyncTask(AirportEntityDao airportDao){
             this.airportDao = airportDao;
         }
 
         @Override
         protected AirportEntity doInBackground(String... strings) {
-            AirportEntity request = airportDao.findByCode(strings[0]);
+            AirportEntity request = airportDao.findByCountry(strings[0]);
             return request;
         }
     }
@@ -119,21 +126,17 @@ public class AirportRepository {
     private static List<AirportEntity> CSVLoad(Context context){
         InputStream in = context.getResources().openRawResource(R.raw.airport_data);
         List<AirportEntity> data = new ArrayList<>();
-        boolean canVisit = false;
-        boolean canTransit = false;
 
         try{
             CSVReader reader = new CSVReader(new InputStreamReader(in));
+            //skip header
+            reader.readNext();
             String[] nl;
 
             while ((nl = reader.readNext()) != null){
-                if(nl[3].equals("TRUE")) canVisit = true;
-                else canVisit = false;
-
-                if(nl[5].equals("TRUE")) canTransit = true;
-                else canTransit = false;
-
-                data.add(new AirportEntity(nl[0],nl[1],nl[2],canVisit,nl[4],canTransit,nl[6],nl[7],nl[8]));
+                data.add(new AirportEntity(nl[0],nl[1],nl[2],Boolean.parseBoolean(nl[3]),nl[4],
+                        Boolean.parseBoolean(nl[5]),nl[6],nl[7],nl[8],Boolean.parseBoolean(nl[9]),
+                        nl[10],nl[11]));
             }
         }
         catch(IOException e){
@@ -141,4 +144,7 @@ public class AirportRepository {
         return data;
     }
 
+
+
 }
+

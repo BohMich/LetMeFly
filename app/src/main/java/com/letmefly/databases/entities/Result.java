@@ -1,7 +1,4 @@
-package com.letmefly.models;
-
-import android.os.Parcel;
-import android.os.Parcelable;
+package com.letmefly.databases.entities;
 
 
 public class Result{
@@ -10,28 +7,29 @@ public class Result{
     private String country;
     private boolean canVisit;
     private boolean canTransit;
+    private boolean quarantine_required;
+
     private String nationality;
 
     private String details;
 
     private int resultState;
 
-    public Result(String city, String country, boolean canVisit, boolean canTransit, String nationality, String details) {
+    public Result(String city, String country, boolean canVisit, boolean canTransit, String nationality, String details, boolean quarantine) {
         this.city = city;
         this.country = country;
         this.canVisit = canVisit;
         this.canTransit = canTransit;
+        this.quarantine_required = quarantine;
         this.nationality = nationality;
         this.details = details;
 
-        if(canVisit) resultState = 2;
-        else if(canTransit) resultState = 1;
-        else resultState = 0;
+        setResult();
     }
 
     public String getDestination() {
-        String mes = String.format("Destination: %1$s, %2$s",city,country);
-        String temp = "Destination:" + " " + city + ", " + country + ".";
+        String mes = String.format("Destination: %1$s",country);
+        String temp = "Destination: " + country + ".";
         return temp;
     }
 
@@ -42,9 +40,10 @@ public class Result{
         //set state based on result level;
         String mes2 = " ";
 
-        if(resultState == 2) mes2 = String.format(" can enter %1$s.",city);
-        else if(resultState == 1) mes2 = String.format(" can not enter %1$s.",city);
-        else mes2 = String.format(" are subject to strict entry ban. Do not travel to %1$s.",city);
+        if(resultState == 3) mes2 = String.format(" can enter %1$s but will have to undergo a quarantine",country);
+        else if(resultState == 2) mes2 = String.format(" can enter %1$s.",country);
+        else if(resultState == 1) mes2 = String.format(" can not enter %1$s.",country);
+        else mes2 = String.format(" are subject to strict entry ban. Do not travel to %1$s.",country);
 
 
         String message = mes1 + mes2;
@@ -54,7 +53,7 @@ public class Result{
     public String getLine2(){
         String mes = "";
 
-        if(resultState == 2) mes = "You can safely visit the city or transfer on the airport.";
+        if(resultState == 2) mes = "You can safely visit or transfer on the airport.";
         else if(resultState == 1) mes = String.format("You may be allowed to transfer on the airport, but you can not stay in %1$s without quarantine.",country);
         else mes = "Do not transit on the airport, you will be subjected to quarantine.";
 
@@ -65,6 +64,12 @@ public class Result{
         return details;
     }
 
+    private void setResult(){
+        if(canVisit && quarantine_required) resultState = 3;
+        else if(canVisit) resultState = 2;
+        else if(canTransit) resultState = 1;
+        else resultState = 0;
+    }
     public boolean isCanVisit() {
         return canVisit;
     }
@@ -72,4 +77,6 @@ public class Result{
     public boolean isCanTransit() {
         return canTransit;
     }
+
+    public boolean  isQuarantine_required() { return quarantine_required; }
 }

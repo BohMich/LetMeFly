@@ -2,8 +2,7 @@ package com.letmefly;
 
 import com.letmefly.databases.entities.AirportEntity;
 import com.letmefly.logic.ResultGenerator;
-import com.letmefly.models.Result;
-import com.letmefly.viewmodels.PassengerViewModel;
+import com.letmefly.databases.entities.Result;
 
 import org.junit.Test;
 

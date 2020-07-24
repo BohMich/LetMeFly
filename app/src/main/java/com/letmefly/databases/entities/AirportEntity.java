@@ -1,15 +1,8 @@
 package com.letmefly.databases.entities;
 
-import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
-import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Entity;
-import androidx.room.Insert;
 import androidx.room.PrimaryKey;
-import androidx.room.Query;
-
-import java.util.List;
 
 @Entity
 public class AirportEntity {
@@ -25,14 +18,12 @@ public class AirportEntity {
     @ColumnInfo(name = "city")
     private String city;
 
-    //visit
     @ColumnInfo(name = "can_visit")
     private Boolean can_visit;
 
     @ColumnInfo(name = "can_visit_info")
     private String can_visit_info;
 
-    //transit
     @ColumnInfo(name = "can_transit")
     private Boolean can_transit;
 
@@ -45,7 +36,19 @@ public class AirportEntity {
     @ColumnInfo(name = "can_transit_details")
     private String can_transit_details;
 
-    public AirportEntity(String airport_code, String country, String city, Boolean can_visit, String can_visit_info, Boolean can_transit, String can_transit_info,String can_visit_details,String can_transit_details) {
+    @ColumnInfo(name = "quarantine_required")
+    private Boolean quarantine_required;
+
+    @ColumnInfo(name = "quarantine_whitelist")
+    private String quarantine_whitelist;
+
+    @ColumnInfo(name = "quarantine_details")
+    private String quarantine_details;
+
+    public AirportEntity(String airport_code, String country, String city, Boolean can_visit,
+                         String can_visit_info, Boolean can_transit, String can_transit_info,
+                         String can_visit_details,String can_transit_details, Boolean quarantine_required,String quarantine_whitelist, String quarantine_details) {
+
         this.airport_code = airport_code;
         this.country = country;
         this.city = city;
@@ -55,6 +58,9 @@ public class AirportEntity {
         this.can_transit_info = can_transit_info;
         this.can_visit_details = can_visit_details;
         this.can_transit_details = can_transit_details;
+        this.quarantine_required = quarantine_required;
+        this.quarantine_whitelist = quarantine_whitelist;
+        this.quarantine_details = quarantine_details;
     }
 
     public int getId() { return id; }
@@ -97,6 +103,18 @@ public class AirportEntity {
 
     public String getCan_transit_details() {
         return can_transit_details;
+    }
+
+    public Boolean getQuarantine_required() {
+        return quarantine_required;
+    }
+
+    public String getQuarantine_whitelist() {
+        return quarantine_whitelist;
+    }
+
+    public String getQuarantine_details() {
+        return quarantine_details;
     }
 }
 

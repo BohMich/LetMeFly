@@ -7,34 +7,7 @@
     android:background="#fcfff7"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/searchPage_button_makeRequest"
-        android:layout_width="244dp"
-        android:layout_height="57dp"
-        android:layout_marginTop="15dp"
-        android:text="@string/searchPage_button"
-        android:textAllCaps="false"
-        android:textColor="@color/colorResultTextColor"
-        android:background="@drawable/btn_rounded"
-        app:layout_constraintStart_toStartOf="@+id/searchPage_input_makeRequest_Name"
-        app:layout_constraintTop_toBottomOf="@+id/searchPage_input_makeRequest_Name" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="326dp"
-        android:layout_height="184dp"
-        android:layout_marginTop="16dp"
-        android:foregroundGravity="center"
-        android:padding="5dp"
-        android:scaleX="2"
-        android:scaleY="2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo_transparent" />
-
-    <com.google.android.material.textfield.TextInputLayout
+    <!--<com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
         android:layout_width="247dp"
         android:layout_height="64dp"
@@ -51,26 +24,93 @@
             android:hint="@string/searchPage_Header"
             android:textColor="@color/colorPrimaryDark" />
 
-    </com.google.android.material.textfield.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>-->
 
-    <com.hbb20.CountryCodePicker
-        android:id="@+id/searchPage_input_makeRequest_Name"
-        android:layout_width="244dp"
-        android:layout_height="57dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
-        android:gravity="clip_horizontal|center_vertical"
-        app:ccp_showFlag="true"
-        app:ccp_showFullName="true"
-        app:ccp_showNameCode="false"
-        app:ccp_showPhoneCode="false"
-        app:ccp_arrowColor="@color/colorPrimaryDark"
-        app:ccp_defaultNameCode="GB"
-        app:layout_constraintBottom_toTopOf="@+id/searchPage_button_makeRequest"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+        app:layout_constraintTop_toTopOf="parent">
 
-    </com.hbb20.CountryCodePicker>
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="326dp"
+            android:layout_height="184dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="36dp"
+            android:foregroundGravity="center"
+            android:padding="5dp"
+            android:scaleX="2"
+            android:scaleY="2"
+            app:srcCompat="@drawable/logo_transparent" />
+
+        <TextView
+            android:id="@+id/textView_departureCountry2"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="60dp"
+            android:gravity="fill"
+            android:text="From:"
+            android:textSize="20sp" />
+
+        <com.hbb20.CountryCodePicker
+            android:id="@+id/searchPage_input_makeRequest"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:gravity="clip_horizontal|center_vertical"
+            app:ccp_arrowColor="@color/colorPrimaryDark"
+            app:ccp_defaultNameCode="GB"
+            app:ccp_showFlag="true"
+            app:ccp_showFullName="true"
+            app:ccp_showNameCode="false"
+            app:ccp_showPhoneCode="false"
+            app:ccp_textSize="25sp">
+
+        </com.hbb20.CountryCodePicker>
+
+        <TextView
+            android:id="@+id/textView_departureCountry"
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:gravity="fill"
+            android:text="To:"
+            android:textSize="20sp" />
+
+        <com.hbb20.CountryCodePicker
+            android:id="@+id/searchPage_country_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:gravity="clip_horizontal|center_vertical"
+            app:ccp_arrowColor="@color/colorPrimaryDark"
+            app:ccp_defaultNameCode="VN"
+            app:ccp_showFlag="true"
+            app:ccp_showFullName="true"
+            app:ccp_showNameCode="false"
+            app:ccp_showPhoneCode="false"
+            app:ccp_textSize="25sp">
+
+        </com.hbb20.CountryCodePicker>
+
+        <Button
+            android:id="@+id/searchPage_button_makeRequest"
+            android:layout_width="244dp"
+            android:layout_height="57dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/btn_rounded"
+            android:text="@string/searchPage_button"
+            android:textAllCaps="false"
+            android:textColor="@color/colorResultTextColor"
+            android:textSize="17sp" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

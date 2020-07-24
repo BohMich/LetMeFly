@@ -19,6 +19,9 @@ public interface AirportEntityDao {
     @Query("SELECT * FROM airportentity WHERE airport_code = :code")
     AirportEntity findByCode(String code);
 
+    @Query("SELECT * FROM airportentity WHERE country = :country")
+    AirportEntity findByCountry(String country);
+
     @Query("DELETE FROM airportentity")
     void deleteAll();
 
